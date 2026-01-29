@@ -1,0 +1,30 @@
+:root {
+  --primary-color: #FFFFFF;
+  --secondary-color: #F3F4F6;
+  --font-color: #000000;
+  --orange-color: #FF6900;
+  --light-orange-color: #FFD6A7;
+}
+
+*{
+    font-family: "Poppins", sans-serif;
+    color: var(--font-color);
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    margin: 0;
+    background-color: var(--primary-color);
+    transition: padding-top 0.15s;
+}
+
+@media (max-width: 875px){
+  body{
+    padding-top: calc(80px);
+  }
+}
+

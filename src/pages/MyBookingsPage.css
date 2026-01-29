@@ -1,0 +1,314 @@
+
+main.my-bookings{
+  width: calc(100% - (32px * 2));
+  padding: 129px 32px 48px 32px;
+  display: flex;
+  background-color: var(--primary-color);
+  justify-content: center;
+}
+
+.container{
+  flex: 1;
+  max-width: 1216px;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.text{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text h1{
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--font-color);
+}
+
+.text p{
+  font-size: 16px;
+  font-weight: 400;
+  color: #6A7282;
+  margin: 0;
+}
+
+.menu-bookings-container{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E5E7EB;
+
+  div{
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4A5565;
+    border-bottom: 2px solid var(--primary-color);
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  div:hover{
+    color: var(--font-color);
+  }
+
+  div.selected{
+    color: var(--orange-color);
+    border-bottom: 2px solid var(--orange-color);
+  }
+}
+
+.booking-container{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  padding: 24px;
+}
+
+.booking-container .id-booking{
+  font-size: 12px;
+  font-weight: 500;
+  color: #364153;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: #F3F4F6;
+  width: fit-content;
+}
+
+.booking-container .detail-bike{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.booking-container img{
+  height: 96px;
+  width: 96px;
+  border-radius: 14px;
+  object-fit: contain;
+  border: 1px solid #E5E7EB;
+}
+
+.booking-container .detail-bike .bike-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  h1{
+    font-size: 20px;
+    font-weight: 700;
+  }
+  p{
+    font-size: 14px;
+    color: #6A7282;
+    font-weight: 400;
+  }
+  div{
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+    align-items: center;
+
+    .point{
+      width: 8px;
+      height: 8px;
+      border-radius: 8px;
+      background-color: #364153;
+      padding: 0;
+    }
+
+    p{
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  div.ongoing{
+    background-color: #CBFBF1;
+    div{
+      background-color: #009689;
+    }
+    p{
+      color: #00786F;
+    }
+  }
+}
+
+.bike-detail-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit-box{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  border: 1px solid var(--orange-color);
+  border-radius: 16px;
+  align-items: center;
+  padding: 8px 16px;
+  width: fit-content;
+  height: fit-content;
+  transition: background-color 0.15s;
+  cursor: pointer;
+  p{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--orange-color);
+  }
+}
+
+.edit-box:hover{
+  background-color: #FFEDD4;
+}
+
+.booking-detail-container{
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex: 1;
+}
+
+.booking-detail-container .rent-date-container{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  .date-box{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  h1{
+    font-size: 12px;
+    font-weight: 400;
+    color: #6A7282;
+  }
+  div{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+
+    p{
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--font-color);
+    }
+  }
+}
+
+.summary-container{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .payment-box{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  h1{
+    font-size: 12px;
+    font-weight: 400;
+    color: #6A7282;
+  }
+  div{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    p{
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--font-color);
+    }
+  }
+}
+
+.summary-container .total-box{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background-color: #F9FAFB;
+  border-radius: 16px;
+
+  div{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: space-between;
+    width: 100%;
+    p{
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--font-color);
+    }
+
+    .title{
+      font-size: 14px;
+      font-weight: 400;
+      color: #4A5565;
+    }
+  }
+
+  .total-price-box{
+    padding-top: 8px;
+    border-top: 1px solid #E5E7EB;
+
+    .total{
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--font-color);
+    }
+
+    .total-price{
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--orange-color);
+    }
+  }
+}
+
+@media (max-width: 875px){
+  main.my-bookings{
+    width: calc(100% - (24px * 2));
+    padding: 32px 24px 32px 24px;
+  }
+  .text h1{
+    font-size: 30px;
+  }
+  .text p{
+    font-size: 14px;
+  }
+  .menu-bookings-container {
+    div{
+      font-size: 12px;
+    }
+  }
+  .container{
+    gap: 24px;
+  }
+  .bike-detail-container{
+    flex-direction: column;
+    gap: 16px;
+  }
+  .booking-detail-container{
+    flex-direction: column;
+    gap: 24px;
+  }
+}

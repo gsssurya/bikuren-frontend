@@ -1,0 +1,179 @@
+footer{
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    background-color: var(--secondary-color);
+    justify-content: center;
+}
+
+footer .footer-container{
+    flex: 1;
+    max-width: 1216px;
+    padding: 48px 32px;
+}
+
+footer .bottom{
+    border-top: 1px solid #E5E7EB;
+    padding: 32px 0 0;
+}
+
+footer .bottom .claim{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+footer .bottom .claim p{
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 16px;
+    color: #99A1AF;
+
+    span{
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--orange-color);
+    }
+}
+
+.claim .owner{
+    border-left: 1px solid #D1D5DC;
+}
+
+.footer-container .bottom .copyright{
+    font-size: 14px;
+    font-weight: 400;
+    color: #6A7282;
+    text-align: center;
+}
+
+.footer-container .top{
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 32px;
+}
+
+.footer-container .top .left{
+    flex: 1;
+}
+
+.footer-container .top .middle, .footer-container .top .right{
+    flex: 1;
+    max-width: 268px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-container .top h1{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-container .top .middle div{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    a{
+        font-size: 14px;
+        font-weight: 400;
+        color: #4A5565;
+        transition: color 0.15s;
+    }
+
+    a:hover{
+        color: var(--orange-color);
+    }
+}
+
+.footer-container .top .right div{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: start;
+}
+
+.footer-container .top .right p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #4A5565;
+}
+
+.footer-container .top .right .maps-container {
+    box-shadow: 1px 4px 10px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #D1D5DC;
+}
+
+.footer-container .top .right .maps-container iframe{
+    height: 128px;
+    width: 100%;    
+}
+
+.footer-container .top .left{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.footer-container .top .left .logo{
+    width: 96px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    svg{
+        scale: 1.4;
+        transform-origin: left center;
+    }
+}
+.footer-container .top .left  p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #4A5565;
+}
+
+.footer-container .top .left .sosmed-container{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.footer-container .top .left .sosmed-container a{
+    height: 40px;
+    width: 40px;
+    background-color: #D1D5DC;
+    border-radius: 20px;
+}
+
+@media (max-width: 625px){
+    .footer-container .top{
+        flex-direction: column;
+        gap: 32px;
+    }
+    footer .footer-container{
+        padding: 32px 24px;
+    }
+    footer .bottom{
+        padding-top: 24px;
+    }
+    footer .bottom .claim{
+        flex-direction: column;
+        gap: 8px;
+    }
+    .footer-container .top .middle, .footer-container .top .right{
+        max-width: none;
+        width: 100%;
+    }
+    .claim .owner{
+        border-left: none;
+    }
+    .footer-container .top{
+        margin-bottom: 24px;
+    }
+}
