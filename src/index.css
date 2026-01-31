@@ -6,6 +6,13 @@
   --light-orange-color: #FFD6A7;
 }
 
+#root{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 *{
     font-family: "Poppins", sans-serif;
     color: var(--font-color);

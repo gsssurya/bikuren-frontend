@@ -23,6 +23,7 @@ main.checkout{
   width: calc(100% - (32px * 2));
   height: calc(100vh - 129px - 48px);
   padding: 129px 32px 48px 32px;
+  min-height: fit-content;
   display: flex;
   background-color: var(--primary-color);
   justify-content: center;

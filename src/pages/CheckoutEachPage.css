@@ -1,0 +1,139 @@
+main.checkout.each{
+    padding: calc(145.26px + 48px) 32px 48px 32px;
+    height: calc(100vh - 193.26px - 48px);
+    min-height: fit-content;
+}
+
+main.checkout.each.close{
+    animation: slideLeft 0.5s ease forwards;
+}
+main.checkout.each.show{
+    animation: slideRight 0.5s ease forwards;
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+nav.each{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+    background-color: var(--primary-color);
+    border-bottom: 1px solid #E5E7EB;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    div{
+        width: calc(100% - (32px * 2));
+        max-width: 1216px;
+        padding: 0 32px;
+    }
+
+    .back-icon{
+        a{
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a:hover{
+            background-color: #FFF7ED;
+        }
+    }
+
+    .text-box{
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        h1{
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--font-color);
+        }
+
+        p{
+            font-size: 14px;
+            font-weight: 400;
+            color: #4A5565;
+        }
+    }
+}
+
+
+.checkout-container.each .bike-detail-box{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #E5E7EB;
+    img{
+        height: 80px;
+        width: 80px;
+        border-radius: 14px;
+        object-fit: cover;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        overflow: scroll;
+        h1{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--font-color);
+        }
+        
+        p.plat-number{
+            padding: 0;
+            font-size: 14px;
+            font-weight: 400;
+            color: #6A7282;
+            text-align: start;
+        }
+
+        h2{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--orange-color);
+        }
+    }
+}
+
+main.checkout.each{
+    padding: 193px 32px 48px 32px;
+    height: calc(100vh - 193px - 48px);
+}
+
+@media (max-width: 875px){
+    main.checkout.each{
+        padding: 97px 24px 32px 24px;
+        height: fit-content;
+    }
+}
