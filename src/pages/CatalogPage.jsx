@@ -133,7 +133,7 @@ function CatalogPage({bikes, loading, currency, setCurrency}){
                 </div>
                 <div className="list-bikes">
                     
-                    { sortedBikes.length > 0 ? !loading ? sortedBikes.slice(0, amountBike).map((bike) => {
+                    { !loading ? sortedBikes.length > 0 ? sortedBikes.slice(0, amountBike).map((bike) => {
                         return (
                             <div className={sortedBikes.length <= 4 ? 'bike-card-container only-one' : 'bike-card-container'} key={bike.id}>
                                 <img src={bike.image ? `${import.meta.env.VITE_API_URL}/${bike.image}` : bikeDefaultImage} className={ bike.status === 'available' ? '' : 'not-ready'} alt="bike-image"/>
@@ -178,7 +178,7 @@ function CatalogPage({bikes, loading, currency, setCurrency}){
                                 </div>
                             </div>
                         )
-                    }) : <BikeSkeleton/> : <p className='bike-not-found'>We couldn’t find any models named '<span>{keywords}</span>'.</p>}
+                    }) : <p className='bike-not-found'>We couldn’t find any models named '<span>{keywords}</span>'.</p> : <BikeSkeleton/> }
                 </div>
                 <p className="show-more-bike" onClick={moreOrLessBike}>
                     {
