@@ -180,12 +180,14 @@ function CatalogPage({bikes, loading, currency, setCurrency}){
                         )
                     }) : <p className='bike-not-found'>We couldn’t find any models named '<span>{keywords}</span>'.</p> : <BikeSkeleton/> }
                 </div>
-                <p className="show-more-bike" onClick={moreOrLessBike}>
-                    {
-                        sortedBikes.length <= 8 ? '' :
-                        amountBike >= bikes.length ? "Show less" : "Show more"
-                    }
-                </p>
+                <div className='show-more-box'>
+                    <p className="show-more-bike" onClick={moreOrLessBike}>
+                        {
+                            sortedBikes.length <= 8 ? '' :
+                            amountBike >= bikes.length ? "Show less" : "Show more"
+                        }
+                    </p>
+                </div>
             </div>
             </main>
             <Footer/>

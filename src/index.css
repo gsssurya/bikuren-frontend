@@ -17,6 +17,7 @@
     font-family: "Poppins", sans-serif;
     color: var(--font-color);
     margin: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a{

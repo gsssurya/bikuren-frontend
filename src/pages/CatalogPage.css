@@ -304,9 +304,15 @@ main.catalog .show-more-bike{
     color: #4A5565;
     font-size: 14px;
     font-weight: 500;
-    text-align: end;
     cursor: pointer;
+    width: fit-content;
     transition: color 0.15s;
+}
+
+.show-more-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }
 
 main.catalog .show-more-bike:hover{
