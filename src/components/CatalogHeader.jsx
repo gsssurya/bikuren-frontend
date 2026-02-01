@@ -87,9 +87,9 @@ function Header({ searchBikes }){
               </div>
         
               <div className={ open ? "mobile-menu show" : "mobile-menu" }>
-                  <Link  to="/" className="text-menu">Catalog</Link>
-                  <Link  to="/myBookings" className="text-menu">My Bookings</Link>
-                  <Link  to="/contacts" className="text-menu">Contacts</Link>
+                  <Link onClick={setOpenMenu} to="/" className="text-menu">Catalog</Link>
+                  <Link onClick={setOpenMenu} to="/myBookings" className="text-menu">My Bookings</Link>
+                  <Link onClick={setOpenMenu} to="/contacts" className="text-menu">Contacts</Link>
               </div>
             </header>
     )

@@ -136,4 +136,10 @@ main.checkout.each{
         padding: 97px 24px 32px 24px;
         height: fit-content;
     }
+    nav.each{
+        div{
+            padding: 0 24px;
+            width: calc(100vw - 24px - 24px);
+        }
+    }
 }
