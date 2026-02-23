@@ -1,0 +1,75 @@
+:root{
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+}
+
+
+.bike-card-container.skeleton{
+    div.img{
+        width: 100%;
+        height: 192px;
+        background-color: var(--slate-100);
+    }
+    .description-container .bike-name{
+        color: var(--slate-400);
+        background-color: var(--slate-400);
+        width: fit-content;
+    }
+    .description-container .bike-number{
+        background-color: var(--slate-300);
+        color: var(--slate-300);
+        width: fit-content;
+    }
+    .description-container .rent-period{
+        color: var(--slate-200);
+        background-color: var(--slate-200);
+        width: fit-content;
+    }
+    .description-container .bike-price{
+        color: var(--slate-400);
+        background-color: var(--slate-400);
+        width: fit-content;
+    }
+    .description-container button{
+        background-color: var(--slate-300);
+        box-shadow: none;
+        color: var(--slate-300);
+        
+    }
+    .load-animate{
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+    .load-animate::after{
+       content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+
+  animation: shimmer 1.5s linear infinite;
+}
+
+    
+
+}
+
+@keyframes shimmer {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: 150%;
+    }
+}

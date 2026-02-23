@@ -1,0 +1,228 @@
+header.catalog{
+    border-bottom: 1px solid #E5E7EB;
+    background-color: var(--primary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header.catalog{
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    gap: 142px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.header.catalog .left{
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    align-items: center;
+    padding-left: 32px;
+}
+
+.header.catalog .left a.logo{
+    display: flex;
+    align-items: center;
+    height: 56px;
+    width: 96px;
+
+    svg{
+        scale: 1.4;
+        transform-origin: left center;
+    }
+}
+
+.header.catalog .left a{
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.header.catalog .left a:hover{
+    color: var(--orange-color);
+}
+
+.header.catalog .middle{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    max-width: 448px;
+    align-items: center;
+    position: relative;
+}
+
+.header.catalog .middle div{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 12px;
+}
+
+.header.catalog .middle input{
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+    flex: 1;
+    min-width: 200px;
+    height: 36px;
+    border: 2px solid var(--secondary-color);
+    padding-left: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    transition: border-color 0.15s;
+}
+
+.header.catalog .middle input:focus{
+    outline: none;
+    border-color: var(--orange-color);
+}
+
+.header.catalog .right {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    padding-right: 32px;
+}
+
+.header.catalog .right a{
+    background-color: var(--secondary-color);
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    transition: background-color 0.15s;
+
+    span{
+        position: absolute;
+        font-size: 10px;
+        border-radius: 100%;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        right: -5px;
+        color: var(--primary-color);
+        background-color: var(--orange-color);
+        top: -5px;
+        font-weight: 500;
+        transition: opacity 0.15s;
+    }
+    span.hide {
+        opacity: 0;
+    }
+    svg{
+        path{
+            stroke: var(--font-color);
+        }
+    }
+}
+
+@media (min-width: 875.1px){
+    .header.catalog .right a:hover{
+        background-color: var(--light-orange-color);
+    }
+}
+
+.header.catalog .right .hamburger-icon{
+    display: none;
+    background-color: var(--primary-color);
+}
+
+.header.catalog .right .hamburger-icon:hover{
+    background-color: var(--primary-color);
+}
+
+
+.mobile-menu{
+    display: none;
+}
+
+/* Responsif */
+@media (max-width: 1280px) {
+    .header.catalog{
+        gap: 32px;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 875px){
+
+    .header.catalog .right a:active{
+        background-color: var(--light-orange-color);
+    }
+
+    .header.catalog .right .hamburger-icon{
+        display: flex;
+    }
+
+    .header.catalog .left .text-menu{
+        display: none;
+    }
+    .mobile-menu{
+        border-top: 1px solid #E5E7EB;
+        display: none;
+        flex-direction: column;
+        gap: 16px;
+        padding: 0 0 16px 0;
+        margin: 0 32px;
+    }
+    .mobile-menu.show{
+        display: flex;
+    }
+
+    .mobile-menu a{
+        height: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color 0.15s;
+    }
+
+    .mobile-menu a:hover{
+        color: var(--orange-color);
+    }
+     .header.catalog{
+        margin-bottom: calc(41.62px + 16px);
+    }
+    .header.catalog .middle{
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 80px;
+        max-width: none;
+    }
+    .mobile-menu{
+       border-top: none; 
+    }
+    .header.catalog .left{
+        padding-left: 24px;
+    }
+    .header.catalog .right{
+        padding-right: 24px;
+    }
+    .mobile-menu{
+        margin: 0 24px;
+    }
+}
+/* Responsif */
+
+.text-menu.active{
+    color: var(--orange-color);
+}

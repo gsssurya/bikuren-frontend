@@ -1,0 +1,279 @@
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.text h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--font-color);
+}
+
+.text p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #6A7282;
+    margin: 0;
+}
+
+main.checkout{
+  width: calc(100% - (32px * 2));
+  height: calc(100vh - 129px - 48px);
+  padding: 129px 32px 48px 32px;
+  min-height: fit-content;
+  display: flex;
+  background-color: var(--primary-color);
+  justify-content: center;
+}
+
+main.checkout .container{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 1116px;
+}
+
+.checkout-container{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    overflow: hidden;
+}
+
+main.checkout .checkout-container .left{
+    flex: 1;
+    display: flex;
+    min-width: 465px;
+    scrollbar-width: none;
+    overflow: scroll;
+    flex-direction: column;
+    gap: 24px;
+    .bikes-list-box, .rental-details-box{
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        gap: 16px;
+        h1{
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--font-color);
+        }
+    }
+}
+
+.checkout-container .left .bikes-list-box{
+    p{
+        font-size: 16px;
+        font-weight: 400;
+        color: #6A7282;
+        padding: 32px 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.checkout-container .left .rental-details-box{
+    .date-box{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        p{
+            font-size: 14px;
+            color: #364153;
+            font-weight: 500;
+        }
+        div{
+            position: relative;
+        }
+        svg{
+            position: absolute;
+            top: 13px;
+            left: 16px;
+        }
+        input{
+            padding: 12px 16px 12px 44px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            font-weight: 500;
+            width: calc(100% - 44px - 16px);
+            border: 2px solid #E5E7EB;
+        }
+        input:focus{
+            outline: none;
+            border-color: var(--orange-color);
+        }
+    }
+}
+
+.checkout-container .right{
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    max-width: 345px;
+    flex: 1;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+    gap: 16px;
+    height: fit-content;
+    h1{
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--font-color);
+    }
+}
+
+.checkout-container .right .payment-method-box{
+    border-radius: 14px;
+    border: 2px solid #E5E7EB;
+    gap: 12px;
+    padding: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    .payment-icon{
+        display: flex;
+        padding: 8px;
+        border-radius: 10px;
+        background-color: #E5E7EB;
+
+    }
+    h1{
+        font-size: 16px;
+        color: var(--font-color);
+    }
+    p{
+        font-size: 14px;
+        font-weight: 400;
+        color: #4A5565;
+    }
+
+    .picked{
+        display: none;
+    }
+}
+
+.checkout-container .right .payment-method-box:hover{
+    border-color: #d5d7db;
+}
+
+.checkout-container .right .payment-method-box.checked{
+    background-color: #FFF7ED;
+    border-color: var(--orange-color) ;
+    .picked{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 18px;
+    }
+    .payment-icon{
+        background-color: var(--orange-color);
+
+        path{
+            stroke: var(--primary-color);
+        }
+    }
+}
+
+.checkout-container .right .summary-box{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid #E5E7EB;
+
+    div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+
+        h1{
+            font-size: 16px;
+            font-weight: 400;
+            color: #4A5565;
+        }
+        p{
+            font-size: 16px;
+            font-weight: 500;
+            color: #4A5565;
+        }
+    }
+
+    .total-box{
+        padding: 6px 0px;
+        border-top: 1px solid #E5E7EB;
+        display: flex;
+
+        h1{
+            font-weight: 700;
+        }
+
+        p{
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--orange-color);
+        }
+    }
+
+    .rental-button{
+        padding: 16px 0px;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary-color);
+        border-radius: 14px;
+        background-color: var(--orange-color);
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+
+    .rental-button:hover{
+         background-color: #ff5900;
+    }
+}
+
+@media (max-width: 875px){
+    main.checkout{
+        padding: 32px 24px 32px 24px;
+        width: calc(100% - (24px * 2));
+        height: fit-content;
+    }
+    .checkout-container{
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .checkout-container .right{
+        max-width: none;
+    }
+    main.checkout .checkout-container .left{
+        min-width: 0px;
+        overflow: visible;
+    }
+    .text h1{
+        font-size: 30px;
+    }
+
+    .text p{
+        font-size: 16px;
+    }
+}
+
+
+.header .right a.active{
+    background-color: var(--orange-color);
+    path{
+        stroke: var(--primary-color);
+    }
+}
