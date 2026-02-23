@@ -1,10 +1,10 @@
 import './ProfilePage.css'
 import Header from "../components/Header"
 
-function ProfilePage(){
+function ProfilePage({cart}){
   return (
     <>
-      <Header/>
+      <Header cart={cart}/>
       <main className="profile">
       <div className="title-profile">
         <h1>Profile Saya</h1>

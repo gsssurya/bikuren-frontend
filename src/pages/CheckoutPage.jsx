@@ -1,10 +1,13 @@
 import Header from "../components/Header";
+import TrashIcon from "../components/icons/TrashIcon";
+import bikeDefaultImage from '../../public/images/default-bike.png'
+import formatMoney from "../utils/money.util";
 import './CheckoutPage.css'
 
-function CheckoutPage(){
+function CheckoutPage({ cart, setCart, bikes, currency}){
     return (
         <>
-            <Header/>
+            <Header cart={cart}/>
             <main className="checkout">
                 <div className="container">
                     <div className="text">
@@ -15,11 +18,47 @@ function CheckoutPage(){
                     <div className="checkout-container">
                         <div className="left">
                             <div className="bikes-list-box">
-                                <h1>Kendaraan dipilih (0)</h1>
-                                <p>Belum ada kendaraan dipilih</p>
+                                <h1 className="title">Kendaraan dipilih ({cart.length})</h1>
+                                <div className="list-box">
+                                    {
+                                        !cart.length == 0 ? 
+                                        cart.map( cartItem => {
+                                            const bike = bikes.find(
+                                                (b) => b.id == cartItem.id
+                                            );
+
+                                            if (!bike) return null;
+
+                                            return (
+                                                <div className="bike-detail-box" key={bike.id}>
+                                                    <img 
+                                                        src={bike.image ? `${import.meta.env.VITE_API_URL}/${bike.image}` : bikeDefaultImage}                                                    />
+                                                    <div>
+                                                        <p className="plat-number">
+                                                            #{bike.id}
+                                                        </p>
+                                                        <h1>
+                                                            {bike.name}
+                                                        </h1>
+                                                        <h2>
+                                                            {formatMoney(bike.price, currency)}/day
+                                                        </h2>
+                                                    </div>
+
+                                                    <div className="trash-icon">
+                                                        <a>
+                                                            <TrashIcon/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                        : <p>Belum ada kendaraan dipilih</p>}
+                                </div>
+                               
                             </div>
                             <div className="rental-details-box">
-                                <h1>Detail rental</h1>
+                                <h1 className="title">Detail rental</h1>
                                 <div className="date-box">
                                     <p>Tanggal sewa</p>
                                     <div>
@@ -47,7 +86,7 @@ function CheckoutPage(){
                             </div>
                         </div>
                         <div className="right">
-                            <h1>Metode pembayaran</h1>
+                            <h1 className="title">Metode pembayaran</h1>
                             <div className="payment-method-box">
                                 <div className="payment-icon">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

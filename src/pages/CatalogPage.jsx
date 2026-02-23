@@ -154,6 +154,9 @@ function CatalogPage({bikes, loading, currency, setCurrency, cart, setCart}){
                                     <p className="bike-name">
                                         { bike.name }
                                     </p>
+                                    <p className="bike-number">
+                                        #{bike.id}
+                                    </p>
                                 </div>
                                 <div>
                                     <p className="rent-period">PER DAY</p>
@@ -187,6 +190,11 @@ function CatalogPage({bikes, loading, currency, setCurrency, cart, setCart}){
 
                                             if(!cart.find(cartItem => cartItem.id == bike.id)){
                                                 addCart(bike.id, bike.price)
+                                            } else {
+                                                setCart(prevCart =>
+                                                    prevCart.filter(cartItem => cartItem.id !== bike.id)
+                                                )
+                                                
                                             }
                                         }
                                     }}

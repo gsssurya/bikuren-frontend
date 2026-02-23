@@ -29,6 +29,14 @@ function App() {
 
       fetchBikes();
   }, [])
+
+  useEffect(() => {
+      if (cart.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(cart));
+      } else {
+          localStorage.removeItem("cart");
+      }
+  }, [cart]);
   return (
     <Routes>
       <Route index element={
@@ -42,10 +50,17 @@ function App() {
         /> 
       }/>
       <Route path='myBookings' element={ 
-        <MyBookingsPage/> 
+        <MyBookingsPage 
+          cart={cart}
+        /> 
       }/>
       <Route path='checkout' element={ 
-        <CheckoutPage/> 
+        <CheckoutPage 
+          cart={cart}
+          setCart={setCart}
+          bikes={bikes}
+          currency={currency}
+        /> 
       }/>
       <Route path='checkout/:bikeId' element={ 
         <CheckoutEachPage
@@ -54,10 +69,14 @@ function App() {
         /> 
       }/>
       <Route path='profile' element={
-        <ProfilePage/>
+        <ProfilePage
+          cart={cart}
+        />
       }/>
       <Route path='contact' element={
-        <ContactPage/>
+        <ContactPage
+          cart={cart}
+        />
       }/>
     </Routes>
   )

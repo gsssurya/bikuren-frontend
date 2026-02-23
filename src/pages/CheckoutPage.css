@@ -37,7 +37,7 @@ main.checkout .container{
     max-width: 1116px;
 }
 
-.checkout-container{
+main.checkout .checkout-container{
     display: flex;
     flex-direction: row;
     gap: 24px;
@@ -59,7 +59,7 @@ main.checkout .checkout-container .left{
         border-radius: 16px;
         border: 1px solid #E5E7EB;
         gap: 16px;
-        h1{
+        h1.title{
             font-size: 20px;
             font-weight: 700;
             color: var(--font-color);
@@ -67,7 +67,7 @@ main.checkout .checkout-container .left{
     }
 }
 
-.checkout-container .left .bikes-list-box{
+main.checkout .checkout-container .left .bikes-list-box{
     p{
         font-size: 16px;
         font-weight: 400;
@@ -76,9 +76,75 @@ main.checkout .checkout-container .left{
         width: 100%;
         text-align: center;
     }
+    .list-box{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 }
 
-.checkout-container .left .rental-details-box{
+main.checkout .checkout-container .bike-detail-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #E5E7EB;
+    img{
+        height: 80px;
+        width: 80px;
+        border-radius: 14px;
+        object-fit: cover;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        h1{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--font-color);
+        }
+        
+        p.plat-number{
+            padding: 0;
+            font-size: 14px;
+            font-weight: 400;
+            color: #6A7282;
+            text-align: start;
+        }
+
+        h2{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--orange-color);
+        }
+    }
+    .trash-icon{
+        flex: 1;
+        justify-content: end;
+        display: flex;
+        flex-direction: row;
+
+        a{
+            width: fit-content;
+            height: 20px;
+            cursor: pointer;
+            svg{
+                transition: all 0.15s;
+            }
+        }
+    }
+}
+
+.trash-icon a:hover{
+    svg{
+        stroke: red;
+    }
+}
+
+main.checkout .checkout-container .left .rental-details-box{
     .date-box{
         display: flex;
         flex-direction: column;
@@ -112,7 +178,7 @@ main.checkout .checkout-container .left{
     }
 }
 
-.checkout-container .right{
+main.checkout .checkout-container .right{
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -129,7 +195,7 @@ main.checkout .checkout-container .left{
     }
 }
 
-.checkout-container .right .payment-method-box{
+main.checkout .checkout-container .right .payment-method-box{
     border-radius: 14px;
     border: 2px solid #E5E7EB;
     gap: 12px;
@@ -162,11 +228,11 @@ main.checkout .checkout-container .left{
     }
 }
 
-.checkout-container .right .payment-method-box:hover{
+main.checkout .checkout-container .right .payment-method-box:hover{
     border-color: #d5d7db;
 }
 
-.checkout-container .right .payment-method-box.checked{
+main.checkout .checkout-container .right .payment-method-box.checked{
     background-color: #FFF7ED;
     border-color: var(--orange-color) ;
     .picked{
@@ -184,7 +250,7 @@ main.checkout .checkout-container .left{
     }
 }
 
-.checkout-container .right .summary-box{
+main.checkout .checkout-container .right .summary-box{
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -244,17 +310,29 @@ main.checkout .checkout-container .left{
 }
 
 @media (max-width: 875px){
+    main.checkout .checkout-container .bike-detail-box{
+        div{
+            h1{
+                font-size: 16px;
+                max-width: 140px;
+            }
+            h2{
+                font-size: 14px;
+                white-space: nowrap;
+            }
+        }
+    }
     main.checkout{
         padding: 32px 24px 32px 24px;
         width: calc(100% - (24px * 2));
         height: fit-content;
     }
-    .checkout-container{
+    main.checkout .checkout-container{
         flex-direction: column;
         overflow: visible;
     }
 
-    .checkout-container .right{
+    main.checkout .checkout-container .right{
         max-width: none;
     }
     main.checkout .checkout-container .left{

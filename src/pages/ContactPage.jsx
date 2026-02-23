@@ -4,11 +4,11 @@ import Footer from '../components/Footer'
 import FAQList from '../components/FAQList';
 import rentalMotorcycleFAQ from '../../public/rentalMotorcycleFAQ'
 
-function ContactPage(){
+function ContactPage({cart}){
   
   return (
     <>
-      <Header/>
+      <Header cart={cart}/>
 
       <main className="contact">
         <div className="text-box">

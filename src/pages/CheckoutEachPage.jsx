@@ -53,18 +53,18 @@ function CheckoutEachPage({ bikes, currency }){
                     <div className="checkout-container each">
                         <div className="left">
                             <div className="bikes-list-box">
-                                <h1>Kendaraan dipilih</h1>
+                                <h1 className='title'>Kendaraan dipilih</h1>
                                 <div className="bike-detail-box">
                                     <img src={bike.image ? `${import.meta.env.VITE_API_URL}/${bike.image}` : bikeDefaultImage} alt=""/>
                                     <div>
+                                        <p className="plat-number">#{bike.id}</p>
                                         <h1>{bike.name}</h1>
-                                        <p className="plat-number">{bike.plate_number}</p>
                                         <h2>{formatMoney(bike.price, currency)}/day</h2>
                                     </div>
                                 </div>
                             </div>
                             <div className="rental-details-box">
-                                <h1>Detail rental</h1>
+                                <h1 className='title'>Detail rental</h1>
                                 <div className="date-box">
                                     <p>Tanggal sewa</p>
                                     <div>
@@ -92,7 +92,7 @@ function CheckoutEachPage({ bikes, currency }){
                             </div>
                         </div>
                         <div className="right">
-                            <h1>Metode pembayaran</h1>
+                            <h1 className='title'>Metode pembayaran</h1>
                             <div className="payment-method-box">
                                 <div className="payment-icon">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

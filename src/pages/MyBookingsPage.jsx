@@ -3,10 +3,10 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import './MyBookingsPage.css'
 
-function MyBookingsPage() {
+function MyBookingsPage({cart}) {
     return (
         <>
-            <Header/>
+            <Header cart={cart}/>
             <main className='my-bookings'>
                 <div className="container">
                     <div className="text">

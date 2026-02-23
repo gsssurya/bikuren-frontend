@@ -15,22 +15,22 @@
     .description-container .bike-name{
         color: var(--slate-400);
         background-color: var(--slate-400);
-        width: fit-content;
+         width: 60%;
     }
     .description-container .bike-number{
         background-color: var(--slate-300);
         color: var(--slate-300);
-        width: fit-content;
+         width: 30%;
     }
     .description-container .rent-period{
         color: var(--slate-200);
         background-color: var(--slate-200);
-        width: fit-content;
+         width: 20%;
     }
     .description-container .bike-price{
         color: var(--slate-400);
         background-color: var(--slate-400);
-        width: fit-content;
+         width: 50%;
     }
     .description-container button{
         background-color: var(--slate-300);
