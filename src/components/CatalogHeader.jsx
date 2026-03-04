@@ -55,11 +55,8 @@ function Header({ searchBikes, cart }){
                       type="text" 
                       placeholder="Search models..." 
                       onChange={(e) => {
-                        if (window.innerWidth > 875) {
-                          searchBikes(e.target.value);
-                          window.scrollTo(0, 0); 
-                        }
-                        
+                        searchBikes(e.target.value);
+                        window.scrollTo(0, 0); 
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
@@ -68,7 +65,6 @@ function Header({ searchBikes, cart }){
                           searchBikes(e.target.value);
                         }
                       }}
-                      
                     />
                 </div>
                 <div className="right">

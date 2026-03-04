@@ -8,12 +8,44 @@ import CheckoutEachPage from './pages/CheckoutEachPage'
 import ProfilePage from './pages/ProfilePage'
 import ContactPage from './pages/ContactPage'
 import api from './utils/api.util'
+import { useLocation } from "react-router-dom";
+import SignInPage from './pages/SignInPage'
+import SignUpPage from './pages/SignUpPage'
 
 function App() {
+  const location = useLocation();
+  const [user, setUser] = useState({});
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'IDR');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        setLoading(true);
+        const id = JSON.parse(localStorage.getItem('user')).id;
+        const check = await api.get(`/users/${id}`);
+        if (check) {
+          setUser(check?.data);
+        } else {
+          localStorage.removeItem("user");
+          setUser({});
+        }
+      } catch (e) {
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkUser();
+  }, []);
+
+
+  useEffect(() => {
+    if (location.pathname === "/signin" || location.pathname === "/signup") {
+      document.body.style.paddingTop = "0";
+    }
+  }, [location]);
 
   useEffect(() => {
       const fetchBikes = async () => {
@@ -21,9 +53,10 @@ function App() {
               setLoading(true);
               const response = await api.get("/bikes");
               setBikes(response.data);
-              setLoading(false);
           } catch (error) {
               console.error(error);
+          } finally {
+            setLoading(false);
           }
       };
 
@@ -71,6 +104,7 @@ function App() {
       <Route path='profile' element={
         <ProfilePage
           cart={cart}
+          setUserGen={setUser}
         />
       }/>
       <Route path='contact' element={
@@ -78,6 +112,16 @@ function App() {
           cart={cart}
         />
       }/>
+      <Route path='signin' element={
+        <SignInPage
+          user={user}
+        />
+      }/>
+      <Route path='signup' element={
+        <SignUpPage/>
+      }
+
+      />
     </Routes>
   )
 }
