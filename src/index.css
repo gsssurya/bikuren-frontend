@@ -4,6 +4,10 @@
   --font-color: #000000;
   --orange-color: #FF6900;
   --light-orange-color: #FFD6A7;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
 }
 
 #root{
@@ -37,3 +41,17 @@ body{
   }
 }
 
+.micro-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--primary-color);
+  border-left-color: var(--orange-color); /* Warna utama, sesuaikan dengan tema Bikuren */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

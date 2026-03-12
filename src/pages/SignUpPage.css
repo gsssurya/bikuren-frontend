@@ -77,6 +77,10 @@
   color: #999;
 }
 
+.container-signup .input-wrapper svg.icon.globe{
+  z-index: 99;
+}
+
 .container-signup .input-wrapper input {
   width: 100%;
   padding: 14px 16px 14px 45px;
@@ -108,14 +112,10 @@
 
 .container-signup .checkbox-group {
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: 8px;
   color: #666;
   cursor: pointer;
-}
-
-.container-signup .checkbox-group input{
-  margin-top: 7px;
 }
 
 .container-signup .forgot-password {
@@ -145,6 +145,12 @@
   box-shadow: 0 4px 12px rgba(255, 85, 0, 0.2);
   margin-bottom: 24px;
   transition: all 0.15s;
+}
+
+.container-signup .btn-login.off{
+  background-color: grey;
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 .container-signup .btn-login.signed{
@@ -196,7 +202,7 @@
 }
 
 .container-signup .footer-text {
-  margin-top: 30px;
+  margin-top: 24px;
   font-size: 14px;
   color: #666;
 }
@@ -217,15 +223,17 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  /*backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-*/
+  transition: all 0.25s;
 }
 
 .container-signup .pop-up-container .pop-up-signin{
@@ -247,19 +255,210 @@
   color: var(--primary-color);
 }
 
+/* Container utama untuk grup input telepon */
+.form-group-phone {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
-@keyframes slideDown{
-  0%{
-    top: -45px;
-  }
-  100%{
-    top: 32px;
-  }
+.form-group-phone label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* Wrapper yang membungkus PhoneInput dan Input nomor */
+.form-group-phone .input-wrapper-phone {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group-phone .input-wrapper-phone.error{
+  border-color: red;
+}
+
+/* Fokus state untuk wrapper */
+.form-group-phone .input-wrapper-phone:focus-within {
+  border-color: var(--orange-color); /* Warna biru sesuai tema Bikuren */
+}
+
+/* Styling untuk bagian PhoneInput (Bendera & Dropdown) */
+.form-group-phone .PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Menghilangkan input bawaan dari library PhoneInput 
+   karena kita menggunakan input manual di sebelahnya */
+.form-group-phone .PhoneInputInput {
+  flex: 1;
+  border: none;
+  height: 100%;
+  border-left: 1px solid #eee;
+  margin-left: 6px;
+  font-size: 14px;
+  padding: 0 0px 0 6px;
+}
+
+.form-group-phone .PhoneInputInput:focus{
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Untuk Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Styling untuk bendera */
+.form-group-phone .PhoneInputCountryIcon {
+  width: 24px;
+  height: auto;
+}
+
+.form-group-phone .PhoneInputCountry{
+  gap: 6px;
+}
+
+/* Styling untuk input nomor telepon manual */
+.form-group-phone input[name='phone'] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+.form-group-phone input[name='phone']::placeholder {
+  color: #aaa;
+}
+
+/* State Error */
+.form-group-phone .input-wrapper.error {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
+
+.form-group-phone .error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Animasi sederhana saat error muncul */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.form-group-phone .input-wrapper.error {
+  animation: shake 0.2s ease-in-out 0s 2;
+}
+
+div.stsearch-box{
+  padding: 0;
+  height: 49px;
+  justify-content: end;
+}
+.container-signup .input-wrapper div{
+  width: 100%;
+}
+
+/* Sembunyikan secara paksa jika class 'show' TIDAK ada */
+.input-wrapper:not(.show) .stdropdown-menu {
+  display: none !important;
+}
+
+div.stdropdown-container{
+  max-width: 382px;
+  border-radius: 12px;
+}
+
+div.show div.stdropdown-tool svg{
+  rotate: 180deg;
+}
+
+div.stdropdown-tool{
+  display: flex;
+  justify-content: end;
+  position: relative;
+  align-items: center;
+}
+div.stdropdown-tool svg{
+  position: absolute;
+  right: 16px;
+  z-index: 99;
+  transition: rotate 0.25s;
+}
+
+div.stdropdown-container{
+  border: none;
+}
+.container-signup .input-wrapper div.stsearch-box input{
+  width: calc(100% + 2px);
+  padding: 14px 52px 14px 45px;
+  position: absolute;
+  border: 1px solid #ddd;
+  left: 0;
+  z-index: 100;
+  background-color: transparent;
+  right: 0;
+}
+
+.container-signup .input-wrapper div.stsearch-box input.error{
+  border-color: red;
+}
+
+.container-signup .input-wrapper div.stsearch-box input:focus{
+  border-color: var(--orange-color);
+}
+
+.stdropdown-container .stdropdown-input input{
+  font-family: "Poppins", sans-serif !important;
+}
+
+div.stdropdown-item{
+  padding: 14px 16px;
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+div.stdropdown-menu{
+  border-radius: 12px;
+  scrollbar-width: none;
+}
+
+.container-signup .input-wrapper div.stdropdown-item{
+  width: calc(100% - 16px - 16px);
+}
+
+.no-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;      /* IE 10 dan 11 */
+  user-select: none;          /* Standar (Chrome, Firefox, Edge) */
 }
 
 @media (min-width: 875.1px){
   .container-signup .btn-login:hover{
     opacity: 0.85;
+  }
+  .container-signup .btn-login.off:hover{
+    opacity: 1;
   }
   .container-signup .social-btn:hover{
     background-color: var(--secondary-color);
@@ -267,14 +466,8 @@
 }
 
 @media (max-width: 875px){
-
-  @keyframes slideDown{
-    0%{
-      top: -45px;
-    }
-    100%{
-      top: 24px;
-    }
+  .container-signup .btn-login.off:active{
+    opacity: 1;
   }
 
   .container-signup .header {
@@ -294,3 +487,4 @@
     background-color: var(--secondary-color);
   }
 }
+

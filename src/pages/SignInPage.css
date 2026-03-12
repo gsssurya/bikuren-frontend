@@ -11,6 +11,7 @@
   padding: 32px 24px;
 }
 
+
 .container-signin .logo {
   scale: 1;
   transform: translateX(12px);
@@ -192,7 +193,7 @@
 }
 
 .container-signin .footer-text {
-  margin-top: 30px;
+  margin-top: 24px;
   font-size: 14px;
   color: #666;
 }
@@ -213,21 +214,24 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 10000;
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  /*backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-*/
+  transition: all 0.25s;
+
 }
 
 .container-signin .pop-up-container .pop-up-signin{
   background-color: var(--orange-color);
   position: absolute;
-  top: -45px;
+  top: 45px;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -235,6 +239,7 @@
   padding: 12px 14px;
   animation: slideDown forwards 0.25s ease;
   border-radius: 16px;
+  transition: all 0.25s;
 }
 
 .container-signin .pop-up-container .pop-up-signin p{

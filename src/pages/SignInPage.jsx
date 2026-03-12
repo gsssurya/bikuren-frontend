@@ -4,25 +4,25 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import api from '../utils/api.util';
 import BikurenIcon from '../components/icons/BikurenIcon';
+import scrollToElError from '../utils/scrollToError';
 
-function SignInPage ({ user }) {
-  
-  const [signed, setSigned] = useState(false);
+function SignInPage ({ user, setUser, appLoad, setAppLoad }) {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [remember, setRemember] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate();
   
   useEffect(() => {
-    if (user?.id) {
-      setSigned(true);
+    document.title = 'Sign In';
+    window.scroll(0, 0);
+    if (user && !appLoad) {
       navigate('/');
-    } else {
-      setSigned(false);
     }
-  }, [user]);
+  }, [appLoad]);
 
   async function handleSubmit (e) {
     e.preventDefault();
@@ -33,23 +33,24 @@ function SignInPage ({ user }) {
     };
 
     try {
+      setAppLoad(true);
       const response = await api.post('/auth/signin', payload, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
       if (response.status === 200) {
-        window.scroll(0, 0);
-        localStorage.setItem('user', JSON.stringify(response.data.data.user));
-        setSigned(true);
-
+        const userId = response.data.data.user.id;
+        setAppLoad(false);
+        setShowPopUp(true);
         setTimeout(() => {
+          setUser(userId);
           navigate('/');
-        }, 1500)
+        }, 2000)
       }
 
     } catch (err) {
+       setAppLoad(false);
       if (err.response?.data?.error?.type === "VALIDATION_ERROR"){
         const errors = {};
         
@@ -58,29 +59,29 @@ function SignInPage ({ user }) {
         });
 
         setFormErrors(errors);
+        scrollToElError(errors);
 
         setTimeout(() => {
           setFormErrors({});
         }, 2000)
-      } else {
-        navigate('/');
       }
     }
   };
 
   return (
+    <>
     <div className="container-signin">
       <div className="logo">
         <BikurenIcon/>
       </div>
-
+  
       <div className="header">
         <h1>Welcome!</h1>
         <p>Sign in to your account to proceed</p>
       </div>
-
+  
       <div className="card">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email</label>
             <div className="input-wrapper email">
@@ -90,12 +91,13 @@ function SignInPage ({ user }) {
                 type="email" 
                 placeholder="Enter your email" 
                 value={email}
+                name='email'
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             {formErrors.email && <p className='error-message'>{formErrors.email}</p>}
           </div>
-
+  
           <div className="form-group">
             <label>Password</label>
             <div className="input-wrapper">
@@ -103,8 +105,10 @@ function SignInPage ({ user }) {
               <input
                 className={formErrors.password && 'error'} 
                 type={!showPw? 'password' : 'text'} 
+                name='password'
                 placeholder="Enter your password" 
                 value={password}
+                autoComplete='username'
                 onChange={(e) => setPassword(e.target.value)}
               />
               {
@@ -118,7 +122,7 @@ function SignInPage ({ user }) {
             </div>
             {formErrors.password && <p className='error-message'>{formErrors.password}</p>}
           </div>
-
+  
           <div className="form-options">
             <div className="checkbox-group">
               <input onClick={() => {
@@ -130,20 +134,19 @@ function SignInPage ({ user }) {
               Forgot password?
             </a>
           </div>
-
+  
           <button 
-            type={!signed? "submit" : 'button'} 
-            className={signed? 'btn-login signed' : "btn-login"}
-            onClick={!signed? handleSubmit : null}
+            type={!user? "submit" : 'button'} 
+            className={user? 'btn-login user' : "btn-login"}
           >
             Sign In
           </button>
         </form>
-
+  
         <div className="divider">
           <span>Or sign in with</span>
         </div>
-
+  
         <div className="social-login">
           <button className="social-btn">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google" />
@@ -151,14 +154,14 @@ function SignInPage ({ user }) {
           </button>
         </div>
       </div>
-
+  
       <p className="footer-text">
         Don’t have an account? <a href="/signup">Sign up</a>
       </p>
-
-      {signed? <div className='pop-up-container'>
+  
+      {showPopUp? <div className='pop-up-container'>
           <div className='pop-up-signin'>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {!appLoad? <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_261_292)">
               <path d="M18.3327 9.2333V9.99997C18.3317 11.797 17.7498 13.5455 16.6738 14.9848C15.5978 16.4241 14.0854 17.477 12.3621 17.9866C10.6389 18.4961 8.79707 18.4349 7.11141 17.8121C5.42575 17.1894 3.98656 16.0384 3.00848 14.5309C2.0304 13.0233 1.56584 11.24 1.68408 9.4469C1.80232 7.65377 2.49702 5.94691 3.66458 4.58086C4.83214 3.21482 6.41 2.26279 8.16284 1.86676C9.91568 1.47073 11.7496 1.65192 13.391 2.3833" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M18.3333 3.33325L10 11.6749L7.5 9.17492" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
@@ -168,15 +171,16 @@ function SignInPage ({ user }) {
               <rect width="20" height="20" fill="white"/>
               </clipPath>
               </defs>
-              </svg>
+              </svg> : <div className="micro-spinner" aria-label="loading"></div> }
               <p>
-                Sign in success!
+                { appLoad? 'Loading...' : 'Sign in success!'}
               </p>
           </div>
       </div> : '' }
-      
     </div>
-  );
+    
+    </>
+  )
 };
 
 export default SignInPage;

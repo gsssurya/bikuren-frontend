@@ -1,0 +1,305 @@
+/* Layout Dasar */
+.page-container-verify {
+  min-height: calc(100vh - 64px - 32px);
+  background: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  padding: 64px 24px 32px 24px;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.no-select { user-select: none; }
+
+/* Confetti & Fade Out Logic */
+.confetti-holder {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  70% { opacity: 1; } /* Tetap muncul sampai 70% perjalanan */
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } /* Fade out di akhir */
+}
+
+/* Card Styling */
+.card-wrapper {
+  width: 100%;
+  max-width: 448px;
+  z-index: 10;
+}
+
+.main-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 2px solid #f3f4f6;
+  text-align: center;
+}
+
+/* Icons & Colors */
+.status-icon-wrapper {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 1.5rem;
+}
+
+.status-icon-wrapper.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-icon-wrapper .micro-spinner{
+  width: 96px;
+  height: 96px;
+  border: 6px solid var(--primary-color);
+  border-left-color: var(--slate-200);
+}
+
+.icon-bg-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title.loading::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+
+  background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+  );
+
+  animation: shimmer 1.5s linear infinite;
+}
+
+.icon-bg-inner svg{
+    stroke: var(--primary-color);
+}
+
+.icon-bg-outer.success { background-color: #f0fdf4; }
+.icon-bg-outer.warning { background-color: #fff7ed; }
+.icon-bg-outer.danger { background-color: #fef2f2; }
+.icon-bg-outer.already { background-color: oklch(93.2% 0.032 255.585);; }
+
+.icon-bg-inner {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-bg-inner.success { background: linear-gradient(to bottom right, #22c55e, #10b981); }
+.icon-bg-inner.already { background-color: oklch(62.3% 0.214 259.815);}
+.icon-bg-inner.warning { background: #f97316; }
+.icon-bg-inner.danger { background: #ef4444; }
+
+.icon-svg { width: 3.5rem; height: 3.5rem; color: white; }
+
+/* Info Box */
+.info-card {
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid;
+  text-align: left;
+}
+
+.info-card.success { background: #f0fdf4; border-color: #bbf7d0; }
+
+.info-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.info-title { font-weight: 600; font-size: 0.875rem; color: #374151; }
+
+.info-list { list-style: none; padding: 0; margin: 0; font-size: 0.75rem; color: #4b5563; }
+.info-list li { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.375rem; }
+
+.bullet { width: 6px; height: 6px; border-radius: 50%; }
+.bullet.green { background: #22c55e; }
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  background: var(--orange-color);
+  color: white;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-primary.loading{
+  user-select: none;
+  background-color: var(--slate-400);
+  color: var(--slate-400);
+  cursor: default;
+  svg{
+    stroke: var(--slate-400);
+  }
+}
+.btn-primary.loading:hover{
+  opacity: 1;
+}
+
+.btn-primary svg{
+    stroke: var(--primary-color);
+}
+
+.btn-primary:hover { opacity: 0.9;}
+
+/* Animations */
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.animate-bounce-in { animation: bounceIn 0.8s ease-out  both; }
+
+/* Base Style untuk semua partikel */
+.particle {
+  position: absolute;
+  border-radius: 9999px; /* Membuat bulat sempurna */
+  z-index: 5;
+}
+
+/* Ukuran dan Posisi spesifik per partikel */
+.p1 {
+  width: 1.5rem;   /* 24px */
+  height: 1.5rem;
+  background-color: #4ade80; /* Hijau terang */
+  top: -0.5rem;
+  right: -0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.p2 {
+  width: 1rem;     /* 16px */
+  height: 1rem;
+  background-color: #86efac; /* Hijau pucat */
+  bottom: -0.5rem;
+  left: -0.5rem;
+}
+
+.p3 {
+  width: 0.75rem;  /* 12px */
+  height: 0.75rem;
+  background-color: #facc15; /* Kuning (Sparkle particle) */
+  top: 0;
+  left: -0.75rem;
+}
+
+/* Animasi Ping (Kustom CSS karena tidak pakai Tailwind) */
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-ping { animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+.status-icon-wrapper {
+  position: relative; /* Ini wajib agar sparkle bisa menempel di sini */
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 24px;
+}
+
+/* Base Style untuk semua sparkle */
+.sparkle {
+  position: absolute;
+  font-size: 1.25rem;
+  z-index: 20; /* Pastikan di atas background icon */
+  animation: pulse 2s infinite;
+}
+
+/* Mengatur posisi masing-masing sparkle */
+.s1 {
+  top: 0.5rem;
+  right: 0.5rem;
+  scale: 1.6;
+}
+
+.s2 {
+  bottom: 0.75rem;
+  left: 0.25rem;
+}
+
+.s3 {
+  top: 50%;
+  right: -1rem;
+  transform: translateY(-50%);
+}
+
+/* Animasi Pulse agar berkedip */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  30% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.verify .logo {
+    scale: 1;
+    width: fit-content;
+    transform: translateX(12px);
+}
+
+.header-section.verify{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-section.verify .main-title{
+    margin-bottom: 24px;
+}
+
+@media (max-width: 875px) {
+    .main-card{
+        padding: 24px;
+    }
+    .card-wrapper{
+        max-width: 432px;
+    }
+}

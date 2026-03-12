@@ -46,7 +46,7 @@ function ContactPage({cart}){
 
             <h3>Click to Chat</h3>
           </a>
-          <a className="sosmed-card gmail" href='mailto:krisnawidiatmika17@gmail.com'>
+          <a className="sosmed-card gmail" href='mailto:bikurenbusiness@gmail.com'>
             <div className="icon">
               <svg
                 width="32"
@@ -75,7 +75,7 @@ function ContactPage({cart}){
 
             <p>Send detailed inquiries via email</p>
 
-            <h2 translate='no'>krisnawidiatmika17@gmail.com</h2>
+            <h2 translate='no'>bikurenbusiness@gmail.com</h2>
 
             <h3>Click to Email</h3>
           </a>
@@ -253,7 +253,7 @@ function ContactPage({cart}){
                   Contact us via WhatsApp
                 </button>
               </a>
-              <a href="mailto:krisnawidiatmika17@gmail.com" target='_blank'>
+              <a href="mailto:bikurenbusiness@gmail.com" target='_blank'>
                 <button className="email">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

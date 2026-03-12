@@ -23,7 +23,10 @@ function CatalogPage({bikes, loading, currency, setCurrency, cart, setCart}){
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'Catalog';
+        window.scroll(0, 0);
         getUsdIdr()
+        localStorage.removeItem('countdown');
     }, [])
 
     useEffect(() => {

@@ -11,10 +11,12 @@ import api from './utils/api.util'
 import { useLocation } from "react-router-dom";
 import SignInPage from './pages/SignInPage'
 import SignUpPage from './pages/SignUpPage'
+import EmailVerificationPage from './pages/EmailVerificationPage';
+import VerifyEmailPage from './pages/VerifyEmailPage'
 
 function App() {
   const location = useLocation();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currency, setCurrency] = useState(localStorage.getItem('currency') || 'IDR');
@@ -24,17 +26,15 @@ function App() {
     const checkUser = async () => {
       try {
         setLoading(true);
-        const id = JSON.parse(localStorage.getItem('user')).id;
-        const check = await api.get(`/users/${id}`);
-        if (check) {
-          setUser(check?.data);
-        } else {
-          localStorage.removeItem("user");
-          setUser({});
+        const getUser = await api.get(`/auth/me`);
+        if(getUser.status == 200){
+          setUser(getUser.data.userId);
         }
-      } catch (e) {
-      } finally {
+        
         setLoading(false);
+      } catch (e) {
+        console.log(e)
+        setUser(null);
       }
     };
     checkUser();
@@ -42,22 +42,21 @@ function App() {
 
 
   useEffect(() => {
-    if (location.pathname === "/signin" || location.pathname === "/signup") {
+    if (location.pathname === "/signin" || location.pathname === "/signup" || location.pathname.startsWith('/verify')) {
       document.body.style.paddingTop = "0";
     }
   }, [location]);
 
   useEffect(() => {
       const fetchBikes = async () => {
-          try {
-              setLoading(true);
-              const response = await api.get("/bikes");
-              setBikes(response.data);
-          } catch (error) {
-              console.error(error);
-          } finally {
-            setLoading(false);
-          }
+        try {
+          setLoading(true);
+          const response = await api.get("/bikes");
+          setBikes(response.data);
+          setLoading(false);
+        } catch (error) {
+          console.error(error);
+        }
       };
 
       fetchBikes();
@@ -104,7 +103,9 @@ function App() {
       <Route path='profile' element={
         <ProfilePage
           cart={cart}
-          setUserGen={setUser}
+          user={user}
+          setUser={setUser}
+          appLoad={loading}
         />
       }/>
       <Route path='contact' element={
@@ -115,13 +116,21 @@ function App() {
       <Route path='signin' element={
         <SignInPage
           user={user}
+          setUser={setUser}
+          appLoad={loading}
+          setAppLoad={setLoading}
         />
       }/>
       <Route path='signup' element={
-        <SignUpPage/>
-      }
-
-      />
+        <SignUpPage
+          appLoad={loading}
+          user={user}
+          setAppLoad={setLoading}
+        />
+      }/>
+      <Route path='verify/:id/:token' element={
+        <VerifyEmailPage/>
+      }/>
     </Routes>
   )
 }

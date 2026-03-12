@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../utils/api.util';
 
-function ProfilePage({cart, setUserGen}){
+function ProfilePage({cart, user, setUser, appLoad}){
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [detailUser, setDetailUser] = useState({});
+  const [loading, setLoading] = useState(appLoad);
+
 
   async function logout(){
     try {
       const out = await api.post('/auth/signout');
-      if(out){
+      if(out.status == 200){
         localStorage.clear();
-        window.scroll(0,0);
+        setUser(null);
+        window.scroll(0, 0);
         navigate('/signin');
-        setUserGen({});
       }
     } catch (e) {
       console.log(e);
@@ -24,58 +25,96 @@ function ProfilePage({cart, setUserGen}){
 
   }
 
-
   //logout();
 
+  function formatPhoneNumber(raw, defaultCountry = "+62") {
+    if (!raw) return "";
+
+    // Hapus semua karakter selain angka dan +
+    let clean = raw.replace(/[^\d+]/g, "");
+
+    let country = "";
+    let number = clean;
+
+    // Jika user menulis kode negara, deteksi
+    if (clean.startsWith("+")) {
+      const match = clean.match(/^\+(\d{1,2})/);
+      if (match) {
+        country = "+" + match[1];
+        number = clean.slice(match[0].length); // sisa nomor
+      }
+    } else {
+      // jika tidak ada +, pakai defaultCountry
+      country = defaultCountry;
+    }
+
+    // ========================
+    // Untuk readable format (frontend)
+    // ========================
+    // Contoh Indonesia: 3-4-4 atau 3-3-4 bisa disesuaikan
+    const part1 = number.slice(0, 3);
+    const part2 = number.slice(3, 7);
+    const part3 = number.slice(7, 11);
+    const part4 = number.slice(11); // jika ada sisa
+
+    let readable = part1;
+    if (part2) readable += "-" + part2;
+    if (part3) readable += "-" + part3;
+    if (part4) readable += "-" + part4;
+
+    // ========================
+    // Clean version untuk backend (E.164)
+    // ========================
+    const cleanVersion = country + number;
+
+    return {
+      clean: cleanVersion,     // simpan ke backend
+      readable: country + " " + readable // tampil ke user
+    };
+  }
+
   useEffect(() => {
-    const getUser = async () => {
+    const getDetailUser = async () => {
       try {
         setLoading(true);
-        const localUser = JSON.parse(localStorage.getItem('user'));
-        if(!localUser){
-          navigate('/signin');
+        const getDetail = await api.get(`/users/${user}`);
+        if(getDetail.status == 200){
+          setDetailUser(getDetail.data);
+          setLoading(false);
         }
-        const check = await api.get(`/users/${localUser?.id}`);
-        if (check) setUser(check.data);
-        
       } catch (e) {
         navigate('/signin');
-      } finally {
-        setLoading(false);
+        console.log(e);
       }
     };
-    getUser();
-  }, []);
 
-  if(loading){
-    return (
-      <p>
-        Loading...
-      </p>
-    )
-  } else {
+    if(!appLoad){
+      getDetailUser();
+    }
+  }, [appLoad]);
+
     return (
       <>
         <Header cart={cart}/>
         <main className="profile">
         <div className="title-profile">
-          <h1>Profile Saya</h1>
-          <p>Kelola informasi profile Anda untuk meningkatkan keamanan akun</p>
+          <h1>My Profile</h1>
+          <p>Manage your profile information to enhance account security</p>
         </div>
   
         <div className="information-box">
           <div className="banner-profile">
             <div className="box-img">
-              <img src={`${import.meta.env.VITE_API_URL}/${user.image}`} alt="" />
+              <img className={loading? 'loading' : 'img-profile'} src={loading? 'none' : `${import.meta.env.VITE_API_URL}/${detailUser.image}`} alt="" />
             </div>
           </div>
           <div className="detail-info-box">
             <div className="name-email-box">
               <div>
-                <h1>{user?.name}</h1>
-                <p>{user?.email}</p>
+                <h1 className={loading? 'loading' : ''}>{loading? 'antoasep' : detailUser?.name}</h1>
+                <p className={loading? 'loading' : ''}>{detailUser?.email}</p>
               </div>
-              <button>
+              {loading? '' :  <button>
                 <svg
                   width="15"
                   height="15"
@@ -93,13 +132,14 @@ function ProfilePage({cart, setUserGen}){
                 </svg>
   
                 Edit Profile
-              </button>
+              </button>}
+             
             </div>
             <div className="responsif-box">
               <div>
                 <div className="each-detail-box">
-                  <p>Nomor Telepon</p>
-                  <div className="input-box">
+                  <p className={loading? 'loading' : ''}>Name</p>
+                  <div className={loading? 'input-box loading' : 'input-box'}>
                     <svg
                       width="20"
                       height="20"
@@ -116,12 +156,12 @@ function ProfilePage({cart, setUserGen}){
                       />
                     </svg>
   
-                    <h2>+62 812-3456-7890</h2>
+                    <h2>{detailUser?.name}</h2>
                   </div>
                 </div>
                 <div className="each-detail-box">
-                  <p>Negara</p>
-                  <div className="input-box">
+                  <p className={loading? 'loading' : ''} translate='no'>Email</p>
+                  <div className={loading? 'input-box loading' : 'input-box'}>
                     <svg
                       width="20"
                       height="20"
@@ -152,15 +192,15 @@ function ProfilePage({cart, setUserGen}){
                       />
                     </svg>
   
-                    <h2>{user?.country}</h2>
+                    <h2>{detailUser?.email}</h2>
                   </div>
                 </div>
               </div>
   
               <div>
                 <div className="each-detail-box">
-                  <p>Full Name</p>
-                  <div className="input-box">
+                  <p className={loading? 'loading' : ''}>Phone</p>
+                  <div className={loading? 'input-box loading' : 'input-box'}>
                     <svg
                       width="20"
                       height="20"
@@ -185,13 +225,13 @@ function ProfilePage({cart, setUserGen}){
                     </svg>
   
                     <h2>
-                      {user?.name}
+                      {formatPhoneNumber(detailUser?.phone).readable}
                     </h2>
                   </div>
                 </div>
                 <div className="each-detail-box">
-                  <p>Email</p>
-                  <div className="input-box">
+                  <p className={loading? 'loading' : ''}>Country</p>
+                  <div className={loading? 'input-box loading' : 'input-box'}>
                     <svg
                       width="20"
                       height="20"
@@ -215,74 +255,77 @@ function ProfilePage({cart, setUserGen}){
                       />
                     </svg>
   
-                    <h2>{user?.email}</h2>
+                    <h2>{detailUser?.country}</h2>
                   </div>
                 </div>
               </div>
   
-              <div>
-                <div className="each-detail-box">
-                  <p>Nomor Pasport</p>
-                  <div className="input-box">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.666 4.16675H3.33268C2.41221 4.16675 1.66602 4.91294 1.66602 5.83341V14.1667C1.66602 15.0872 2.41221 15.8334 3.33268 15.8334H16.666C17.5865 15.8334 18.3327 15.0872 18.3327 14.1667V5.83341C18.3327 4.91294 17.5865 4.16675 16.666 4.16675Z"
-                        stroke="#99A1AF"
-                        strokeWidth="1.66667"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M1.66602 8.33337H18.3327"
-                        stroke="#99A1AF"
-                        strokeWidth="1.66667"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-  
-                    <h2>{user?.passport}</h2>
+              {
+                detailUser?.country == 'Indonesia'? '' : 
+                <div>
+                  <div className="each-detail-box">
+                    <p className={loading? 'loading' : ''}>Passport Number</p>
+                    <div className={loading? 'input-box loading' : 'input-box'}>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16.666 4.16675H3.33268C2.41221 4.16675 1.66602 4.91294 1.66602 5.83341V14.1667C1.66602 15.0872 2.41221 15.8334 3.33268 15.8334H16.666C17.5865 15.8334 18.3327 15.0872 18.3327 14.1667V5.83341C18.3327 4.91294 17.5865 4.16675 16.666 4.16675Z"
+                          stroke="#99A1AF"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M1.66602 8.33337H18.3327"
+                          stroke="#99A1AF"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+    
+                      <h2>{detailUser?.passport}</h2>
+                    </div>
+                  </div>
+                  <div className="each-detail-box">
+                    <p className={loading? 'loading' : ''}>Room/Villa Number</p>
+                    <div className={loading? 'input-box loading' : 'input-box'}>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12.5 17.5V10.8333C12.5 10.6123 12.4122 10.4004 12.2559 10.2441C12.0996 10.0878 11.8877 10 11.6667 10H8.33333C8.11232 10 7.90036 10.0878 7.74408 10.2441C7.5878 10.4004 7.5 10.6123 7.5 10.8333V17.5"
+                          stroke="#99A1AF"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M2.5 8.33333C2.49994 8.09088 2.55278 7.85135 2.65482 7.63142C2.75687 7.4115 2.90566 7.21649 3.09083 7.05999L8.92417 2.05999C9.22499 1.80575 9.60613 1.66626 10 1.66626C10.3939 1.66626 10.775 1.80575 11.0758 2.05999L16.9092 7.05999C17.0943 7.21649 17.2431 7.4115 17.3452 7.63142C17.4472 7.85135 17.5001 8.09088 17.5 8.33333V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V8.33333Z"
+                          stroke="#99A1AF"
+                          strokeWidth="1.66667"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+    
+                      <h2>{detailUser?.room_number}</h2>
+                    </div>
                   </div>
                 </div>
-                <div className="each-detail-box">
-                  <p>Nomor Kamar/Villa</p>
-                  <div className="input-box">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.5 17.5V10.8333C12.5 10.6123 12.4122 10.4004 12.2559 10.2441C12.0996 10.0878 11.8877 10 11.6667 10H8.33333C8.11232 10 7.90036 10.0878 7.74408 10.2441C7.5878 10.4004 7.5 10.6123 7.5 10.8333V17.5"
-                        stroke="#99A1AF"
-                        strokeWidth="1.66667"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M2.5 8.33333C2.49994 8.09088 2.55278 7.85135 2.65482 7.63142C2.75687 7.4115 2.90566 7.21649 3.09083 7.05999L8.92417 2.05999C9.22499 1.80575 9.60613 1.66626 10 1.66626C10.3939 1.66626 10.775 1.80575 11.0758 2.05999L16.9092 7.05999C17.0943 7.21649 17.2431 7.4115 17.3452 7.63142C17.4472 7.85135 17.5001 8.09088 17.5 8.33333V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V8.33333Z"
-                        stroke="#99A1AF"
-                        strokeWidth="1.66667"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-  
-                    <h2>{user?.room_number}</h2>
-                  </div>
-                </div>
-              </div>
+              }
               <div className="each-detail-box address">
-                <p>Alamat</p>
-                <div className="input-box">
+                <p className={loading? 'loading' : ''}>Address</p>
+                <div className={loading? 'input-box loading' : 'input-box'}>
                   <svg
                     width="20"
                     height="20"
@@ -306,7 +349,7 @@ function ProfilePage({cart, setUserGen}){
                     />
                   </svg>
   
-                  <h2>{user?.address? user?.address : '-'}</h2>
+                  <h2>{detailUser?.address? detailUser?.address : '-'}</h2>
                 </div>
               </div>
             </div>
@@ -348,8 +391,8 @@ function ProfilePage({cart, setUserGen}){
             </div>
   
             <div className="text-box">
-              <h1>Ganti Password</h1>
-              <p>Perbarui password Anda secara berkala untuk keamanan akun</p>
+              <h1>Change Password</h1>
+              <p>Update your password regularly to maintain account security</p>
             </div>
           </div>
           <button>Ubah</button>
@@ -380,8 +423,6 @@ function ProfilePage({cart, setUserGen}){
       </main>
       </>
     )
-
-  }
 
 }
 export default ProfilePage;
